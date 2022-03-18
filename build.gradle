@@ -1,0 +1,130 @@
+plugins {
+    id 'org.jetbrains.intellij' version '0.4.21'
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.jetbrains.intellij'
+
+group 'com.jmonkeystore'
+version '1.0.6.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    // test-data
+    maven { url 'https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine/' } // for jme3-testdata
+}
+
+configurations {
+    corelibs
+}
+
+project.ext {
+    jmeVer = "3.3.2-stable"
+}
+
+dependencies {
+
+    compile "com.jmonkeystore:intellij-integration-api:1.0"
+
+    compile "org.jmonkeyengine:jme3-core:$jmeVer"
+    compile "org.jmonkeyengine:jme3-desktop:$jmeVer"
+    compile "org.jmonkeyengine:jme3-lwjgl:$jmeVer"
+    compile "org.jmonkeyengine:jme3-plugins:$jmeVer"
+    compile "org.jmonkeyengine:jme3-blender:$jmeVer"
+    compile "org.jmonkeyengine:jme3-jogg:$jmeVer"
+    compile "org.jmonkeyengine:jme3-terrain:$jmeVer"
+
+    compile "org.jmonkeyengine:jme3-testdata:$jmeVer"
+
+    compile "org.reflections:reflections:0.9.11"
+    compile "com.google.guava:guava:29.0-jre"
+    compile "org.codehaus.groovy:groovy-all:3.0.4"
+}
+
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2020.1'
+    plugins = [ 'java', 'gradle', 'coverage' ]
+}
+patchPluginXml {
+    changeNotes """
+
+    <h3>1.0.6.0</h3>
+    <ul>
+        <li>Compatibility intellij 2020.1.</li>
+    </ul>
+    
+    <h3>1.0.5.2</h3>
+    <ul>
+        <li>Remove all un-used scene editor objects.</li>
+        <li>Double-Click a node in scene explorer to lookAt it.</li>
+        <li>Add use WASD/QE keys to manouver when pressing LMB, RMB or MMB in scene editor.</li>
+        <li>Improve camera mouse controls in scene editor.</li>
+    </ul>
+
+    <h3>1.0.5.1</h3>
+    <ul>
+        <li>Tidied up FPS template code and template management.</li>
+    </ul>
+
+    <h3>1.0.5</h3>
+    <ul>
+        <li>Fix compatibility-related issues updating to IJ-2019.3</li>
+        <li>Use PBR-based scenes instead of regular Lighting.j3md</li>
+        <li>Add new game templates such as basic, FPS, etc</li>
+        <li>Add support for bounding sphere highlighting in editor</li>
+        <li>Use new camera controls to allow editors to assign left-click actions</li>
+        <li>Deprecate old methods of generating JME object editors</li>
+        <li>Begin implementation of registering custom editors for Controls, Nodes and Geometries.</li>
+        <li>Allow adding ParticleEmitter to nodes in Scene Explorer</li>
+    </ul>
+    
+    <h3>1.0.4.x</h3>
+    <ul>
+        <li>Update for compatibility for IJ 2019.3</li>
+        <li>Removed manually-generated properties.</li>
+        <li>Added reflected get/set properties to reveal all available registered properties.</li>
+    </ul>
+
+    <h3>1.0.3</h3>
+    <ul>
+        <li>Add Nodes (Right-Click on a node in scene explorer).</li>
+        <li>Drag models into the scene explorer from the project tab.</li>
+        <li>Delete things (right-click in scene explorer).</li>
+        <li>Save Changes in Scene Explorer</li>
+        <li>Add a SkyBox (Right Click in Scene Explorer)</li>
+        <li>Generate LightProbes</li>
+    </ul>
+
+    <h3>1.0.2</h3>
+    <ul>
+        <li>View j3m materials.</li>
+        <li>Add and remove lights from a scene.</li>
+        <li>Added checks and dialogs for read/write permissions.</li>
+        <li>Clean up classpath when finished with added jars.</li>
+    </ul>
+
+    <h3>1.0.1</h3>
+    <ul>
+        <li>Added a scene explorer</li>
+        <li>Added basic editing tools</li>
+        <li>Added option to view normals in editor debug menu</li>
+        <li>Added the ability to save changes</li>
+    </ul>
+
+    <h3>1.0</h3>
+    <p>Initial release</p>
+    """
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

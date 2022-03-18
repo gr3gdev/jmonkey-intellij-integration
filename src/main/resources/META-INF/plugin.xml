@@ -1,0 +1,68 @@
+<idea-plugin>
+    <id>com.jmonkeystore.intellij-integration</id>
+    <name>JmonkeyEngine Integration</name>
+    <vendor email="support@jmonkeystore.com" url="https://jmonkeystore.com">JmonkeyStore</vendor>
+    <description>Provides IDE integration for JmonkeyEngine</description>
+
+    <idea-version since-build="193"/>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+    <depends>com.intellij.gradle</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <!-- New Jmonkey Project Template -->
+        <moduleType id="jMonkeyEngine" implementationClass="com.jmonkeystore.ide.newproject.JmeModuleType"/>
+        <moduleBuilder builderClass="com.jmonkeystore.ide.newproject.JmeModuleBuilder" />
+
+        <!-- Pre-load the jmonkey engine -->
+        <postStartupActivity implementation="com.jmonkeystore.ide.startup.JmeStartupActivity" />
+
+        <!-- The JmonkeyEngine service -->
+        <applicationService serviceInterface="com.jmonkeystore.ide.jme.JmeEngineService" serviceImplementation="com.jmonkeystore.ide.jme.impl.JmeEngineServiceImpl"/>
+
+        <!-- Scene Explorer: view scenegraph -->
+        <applicationService serviceInterface="com.jmonkeystore.ide.scene.explorer.SceneExplorerService" serviceImplementation="com.jmonkeystore.ide.scene.explorer.impl.SceneExplorerServiceImpl"/>
+
+        <!-- Property Editor: edit scene graph selected object properties -->
+        <applicationService serviceInterface="com.jmonkeystore.ide.scene.editor.PropertyEditorService" serviceImplementation="com.jmonkeystore.ide.scene.editor.impl.PropertyEditorServiceImpl"/>
+
+        <!-- A store of whatever we inject into intellij and the engine to use -->
+        <!-- <applicationService serviceImplementation="com.jmonkeystore.ide.reflection.ClassPathListener" /> -->
+
+        <!-- .j3o file type and editor -->
+        <fileType name="Jme Model" implementationClass="com.jmonkeystore.ide.filetype.JmeModelFileType" fieldName="INSTANCE" language="Jme.Model" extensions="j3o"/>
+        <fileEditorProvider implementation="com.jmonkeystore.ide.editor.JmeModelEditorProvider"/>
+
+        <!-- .j3m file type and editor -->
+        <fileType name="Jme Material" implementationClass="com.jmonkeystore.ide.filetype.JmeMaterialFileType" fieldName="INSTANCE" language="Jme.Material" extensions="j3m"/>
+        <fileEditorProvider implementation="com.jmonkeystore.ide.viewer.JmeMaterialViewerProvider"/>
+
+        <!-- Scene Node Tool Window -->
+        <toolWindow id="Scene Explorer" icon="/Icons/jmonkey.png" anchor="left" secondary="true" factoryClass="com.jmonkeystore.ide.scene.explorer.SceneToolWindowFactory"/>
+
+        <!-- Object Editor Tool Window -->
+        <toolWindow id="Property Editor" icon="/Icons/jmonkey.png" anchor="right" secondary="false" factoryClass="com.jmonkeystore.ide.scene.editor.PropertyEditorToolWindowFactory"/>
+
+    </extensions>
+
+    <actions>
+
+        <action id="com.jmonkeystore.ide.action.importmodel.ImportModelAction"
+                class="com.jmonkeystore.ide.action.importmodel.ImportModelAction" text="Import Model"
+                description="Imports a model">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
+
+        <action id="com.jmonkeystore.ide.action.newscene.NewSceneAction"
+                class="com.jmonkeystore.ide.action.newscene.NewSceneAction" text="Empty Scene"
+                icon="/Icons/jmonkey.png"
+                description="Creates a new JME scene">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+
+    </actions>
+
+</idea-plugin>

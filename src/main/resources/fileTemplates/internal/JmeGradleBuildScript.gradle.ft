@@ -1,0 +1,49 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = ${JAVA_VERSION}
+targetCompatibility = ${JAVA_VERSION}
+
+group '${GROUP_ID}'
+version '${VERSION}'
+
+mainClassName = "${MAINCLASSNAME}"
+
+repositories {
+    jcenter()
+    maven { url 'https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine/' } // for jme3-testdata
+}
+
+project.ext {
+    jmeVer = '${JME_ENGINE_VERSION}'
+}
+
+dependencies {
+
+    implementation "org.jmonkeyengine:jme3-core:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-desktop:$jmeVer"
+
+    #if (${JME_LWJGL_VERSION} != "LWJGL 2")//#end implementation "org.jmonkeyengine:jme3-lwjgl:$jmeVer"
+    #if (${JME_LWJGL_VERSION} != "LWJGL 3")//#end implementation "org.jmonkeyengine:jme3-lwjgl3:$jmeVer"
+
+    implementation "org.jmonkeyengine:jme3-effects:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-jogg:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-plugins:$jmeVer"
+
+    implementation "org.jmonkeyengine:jme3-bullet:$jmeVer"
+    #if (${JME_BULLET_TYPE} != "Native")//#end implementation "org.jmonkeyengine:jme3-bullet-native:$jmeVer"
+    #if (${JME_BULLET_TYPE} != "jBullet")//#end implementation "org.jmonkeyengine:jme3-jbullet:$jmeVer"
+
+    compile "org.jmonkeyengine:jme3-testdata:$jmeVer"
+
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    manifest {
+        attributes 'Main-Class': '${MAINCLASSNAME}'
+    }
+}
