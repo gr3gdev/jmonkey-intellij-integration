@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.jmonkeystore'
-version '1.0.6.0'
+version '1.1.0.0'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -24,7 +24,7 @@ configurations {
 }
 
 project.ext {
-    jmeVer = "3.3.2-stable"
+    jmeVer = "3.5.0-stable"
 }
 
 dependencies {
@@ -49,17 +49,18 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1'
+    version '2021.1'
     plugins = [ 'java', 'gradle', 'coverage' ]
 }
 patchPluginXml {
     changeNotes """
 
-    <h3>1.0.6.0</h3>
+    <h3>1.1.0.0</h3>
     <ul>
-        <li>Compatibility intellij 2020.1.</li>
+        <li>Compatibility intellij 2021.1</li>
+        <li>jMonkey version 3.5.0-stable</li>
     </ul>
-    
+
     <h3>1.0.5.2</h3>
     <ul>
         <li>Remove all un-used scene editor objects.</li>
