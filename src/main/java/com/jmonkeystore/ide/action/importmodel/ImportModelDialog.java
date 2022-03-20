@@ -1,10 +1,8 @@
 package com.jmonkeystore.ide.action.importmodel;
 
-import com.google.common.io.Files;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.uiDesigner.core.GridConstraints;
-import com.jme3.bounding.BoundingSphere;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.LightProbe;
@@ -19,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.util.Optional;
 
 public class ImportModelDialog extends DialogWrapper {
 
@@ -35,6 +34,13 @@ public class ImportModelDialog extends DialogWrapper {
         init();
         setOKButtonText("Import Model");
         setTitle("Import Model");
+    }
+
+    private String getFileExtension(File file) {
+        return Optional.ofNullable(file)
+                .filter(f -> f.getName().contains("."))
+                .map(f -> f.getName().substring(f.getName().lastIndexOf(".") + 1))
+                .orElse("");
     }
 
     @Nullable
@@ -78,15 +84,15 @@ public class ImportModelDialog extends DialogWrapper {
 
                     jmePanel.getRootNode().addLight(new DirectionalLight(new Vector3f(-1, -1, -1).normalizeLocal(), ColorRGBA.White.mult(0.7f)));
 
-                    if ("gltf".equalsIgnoreCase(Files.getFileExtension(fileChooser.getSelectedFile().getAbsolutePath())) ||
-                        "glb".equalsIgnoreCase(Files.getFileExtension(fileChooser.getSelectedFile().getAbsolutePath()))) {
+                    if ("gltf".equalsIgnoreCase(getFileExtension(fileChooser.getSelectedFile())) ||
+                            "glb".equalsIgnoreCase(getFileExtension(fileChooser.getSelectedFile()))) {
 
                         model = engineService.getExternalAssetLoader().load(GltfExtrasLoader.createModelKey(fileChooser.getSelectedFile().getAbsolutePath()), Spatial.class);
 
                         // add a light probe to GLTF models.
                         Spatial probeModel = engineService.getAssetManager().loadModel("Scenes/defaultProbe.j3o");
                         LightProbe lightProbe = (LightProbe) probeModel.getLocalLightList().get(0);
-                        lightProbe.setBounds(new BoundingSphere(500, new Vector3f(0, 0, 0)));
+                        // TODO lightProbe.setBounds(new BoundingSphere(500, new Vector3f(0, 0, 0)));
                         jmePanel.getRootNode().addLight(lightProbe);
 
                     }

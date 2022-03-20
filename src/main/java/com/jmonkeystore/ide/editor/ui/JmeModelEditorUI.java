@@ -95,7 +95,7 @@ public class JmeModelEditorUI implements Disposable {
         // Spatial probeModel = engineService.getAssetManager().loadModel("Scenes/defaultProbe.j3o");
         Spatial probeModel = engineService.getAssetManager().loadModel("Models/lightprobe.j3o");
         lightProbe = (LightProbe) probeModel.getLocalLightList().get(0);
-        lightProbe.setBounds(new BoundingSphere(500, new Vector3f(0, 0, 0)));
+        // TODO lightProbe.setBounds(new BoundingSphere(500, new Vector3f(0, 0, 0)));
 
         sky = SkyLoader.LAGOON.load();
         skyBoxMenuItems[4].setSelected(true); // set the lagoon menuItem to selected.

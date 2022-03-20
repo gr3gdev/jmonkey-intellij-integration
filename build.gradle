@@ -25,6 +25,7 @@ configurations {
 
 project.ext {
     jmeVer = "3.5.0-stable"
+    jmeVer2 = "3.3.2-stable"
 }
 
 dependencies {
@@ -35,14 +36,14 @@ dependencies {
     compile "org.jmonkeyengine:jme3-desktop:$jmeVer"
     compile "org.jmonkeyengine:jme3-lwjgl:$jmeVer"
     compile "org.jmonkeyengine:jme3-plugins:$jmeVer"
-    compile "org.jmonkeyengine:jme3-blender:$jmeVer"
+    compile "org.jmonkeyengine:jme3-blender:$jmeVer2"
     compile "org.jmonkeyengine:jme3-jogg:$jmeVer"
     compile "org.jmonkeyengine:jme3-terrain:$jmeVer"
 
     compile "org.jmonkeyengine:jme3-testdata:$jmeVer"
 
     compile "org.reflections:reflections:0.9.11"
-    compile "com.google.guava:guava:29.0-jre"
+    //compile "com.google.guava:guava:29.0-jre"
     compile "org.codehaus.groovy:groovy-all:3.0.4"
 }
 
