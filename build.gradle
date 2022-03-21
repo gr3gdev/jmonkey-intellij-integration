@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.jmonkeystore'
-version '1.1.0.0'
+version '1.2.0.0'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,13 +47,18 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2019.3'
+    version '2020.1'
     plugins = [ 'java', 'gradle', 'coverage' ]
 }
 
 patchPluginXml {
-    sinceBuild "193"
+    sinceBuild "201"
     changeNotes """
+
+    <h3>1.2.0.0</h3>
+    <ul>
+        <li>Compatibility intellij 2020.1+</li>
+    </ul>
 
     <h3>1.1.0.0</h3>
     <ul>
