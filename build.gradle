@@ -47,15 +47,17 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.1'
+    version '2021.1'
     plugins = [ 'java', 'gradle', 'coverage' ]
 }
+
 patchPluginXml {
+    sinceBuild "193"
     changeNotes """
 
     <h3>1.1.0.0</h3>
     <ul>
-        <li>Compatibility intellij 2020.1</li>
+        <li>Compatibility intellij 2019.3+</li>
         <li>jMonkey version 3.5.0-stable</li>
     </ul>
 
