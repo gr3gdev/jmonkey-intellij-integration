@@ -27,4 +27,5 @@ jobs:
           asset_name: jmonkey-intellij-integration.jar
           tag: ${{ github.ref }}
           overwrite: true
+          file_glob: true
           body: "Release plugin for intellij"
