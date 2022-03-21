@@ -19,10 +19,6 @@ jobs:
           settings-path: ${{ github.workspace }} # location for the settings.xml file
       - name: Build plugin
         run: gradle buildPlugin
-      - name: Tag version
-        uses: anothrNick/github-tag-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release folder
         run: mkdir ./release
       - name: Copy lib
