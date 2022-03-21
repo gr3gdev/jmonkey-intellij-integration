@@ -218,7 +218,7 @@ public class ClassPathListener {
 
         ConfigurationBuilder builder = new ConfigurationBuilder()
                 //.addClassLoader(jmeClassLoader)
-                .addClassLoader(urlClassLoader)
+                .addClassLoaders(urlClassLoader)
                 // .addClassLoader(urlClassLoader)
                 // .addClassLoader(ServiceManager.getService(JmeEngineService.class).getClass().getClassLoader())
                 // .addUrls(jmeClassLoader.getURLs())

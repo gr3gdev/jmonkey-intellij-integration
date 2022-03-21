@@ -30,27 +30,26 @@ project.ext {
 
 dependencies {
 
-    compile "com.jmonkeystore:intellij-integration-api:1.0"
+    implementation "com.jmonkeystore:intellij-integration-api:1.0"
 
-    compile "org.jmonkeyengine:jme3-core:$jmeVer"
-    compile "org.jmonkeyengine:jme3-desktop:$jmeVer"
-    compile "org.jmonkeyengine:jme3-lwjgl:$jmeVer"
-    compile "org.jmonkeyengine:jme3-plugins:$jmeVer"
-    compile "org.jmonkeyengine:jme3-blender:$jmeVer2"
-    compile "org.jmonkeyengine:jme3-jogg:$jmeVer"
-    compile "org.jmonkeyengine:jme3-terrain:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-core:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-desktop:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-lwjgl:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-plugins:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-blender:$jmeVer2"
+    implementation "org.jmonkeyengine:jme3-jogg:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-terrain:$jmeVer"
 
-    compile "org.jmonkeyengine:jme3-testdata:$jmeVer"
+    implementation "org.jmonkeyengine:jme3-testdata:$jmeVer"
 
-    compile "org.reflections:reflections:0.9.11"
-    //compile "com.google.guava:guava:29.0-jre"
-    compile "org.codehaus.groovy:groovy-all:3.0.4"
+    implementation "org.reflections:reflections:0.10.2"
+    implementation "org.codehaus.groovy:groovy-all:3.0.4"
 }
 
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2021.1'
+    version '2020.1'
     plugins = [ 'java', 'gradle', 'coverage' ]
 }
 patchPluginXml {
@@ -58,7 +57,7 @@ patchPluginXml {
 
     <h3>1.1.0.0</h3>
     <ul>
-        <li>Compatibility intellij 2021.1</li>
+        <li>Compatibility intellij 2020.1</li>
         <li>jMonkey version 3.5.0-stable</li>
     </ul>
 
@@ -123,10 +122,4 @@ patchPluginXml {
     <h3>1.0</h3>
     <p>Initial release</p>
     """
-}
-
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
 }
