@@ -14,9 +14,6 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
-    jcenter()
-    // test-data
-    maven { url 'https://dl.bintray.com/jmonkeyengine/org.jmonkeyengine/' } // for jme3-testdata
 }
 
 configurations {
