@@ -23,13 +23,14 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.util.SystemProperties;
 import org.apache.commons.io.IOUtils;
+import org.gradle.util.GradleVersion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jps.model.java.JavaResourceRootType;
 import org.jetbrains.jps.model.java.JavaSourceRootType;
 import org.jetbrains.plugins.gradle.frameworkSupport.BuildScriptDataBuilder;
+import org.jetbrains.plugins.gradle.frameworkSupport.buildscript.KotlinDslGradleBuildScriptBuilder;
 import org.jetbrains.plugins.gradle.settings.GradleProjectSettings;
 import org.jetbrains.plugins.gradle.util.GradleConstants;
 
@@ -138,7 +139,7 @@ public class JmeModuleBuilder extends AbstractExternalModuleBuilder<GradleProjec
         if (gradleBuildFile != null) {
             modifiableRootModel.getModule().putUserData(
                     Key.create("gradle.module.buildScriptData"),
-                    new BuildScriptDataBuilder(gradleBuildFile));
+                    new BuildScriptDataBuilder(gradleBuildFile, new KotlinDslGradleBuildScriptBuilder(GradleVersion.current())));
         }
 
         // doesn't work.
@@ -419,7 +420,7 @@ public class JmeModuleBuilder extends AbstractExternalModuleBuilder<GradleProjec
         if (lineSeparator == null) {
             // lineSeparator = CodeStyleSettingsManager.getSettings(ProjectManagerEx.getInstanceEx().getDefaultProject()).getLineSeparator();
             // CodeStyleSettingsManager.getInstance(ProjectManagerEx.getInstanceEx().getDefaultProject()).getMainProjectCodeStyle().getLineSeparator();
-            lineSeparator = SystemProperties.getLineSeparator();
+            lineSeparator = System.lineSeparator();
         }
 
         String existingText = VfsUtilCore.loadText(file).trim();
